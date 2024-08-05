@@ -15,7 +15,6 @@ var data = {
     mass: 1,
     elem: "H",
     val: 1,
-    valencies: [1, 2, 3, 4, 1, 2, 3, 0, 1, 2, 3, 4, 1, 2, 3, 0, 1, 2, 3, 4, 1, 2, 3, 0, 1, 2, 3, 4, 1, 2, 3, 0, 1, 2, 3, 4, 1, 2, 3, 0, 1, 2, 3, 4, 1, 2, 3, 0, 1, 2, 3, 4, 1, 2, 3, 0, 1, 2, 3, 4, 1, 2, 3, 0, 1, 2, 3, 4, 1, 2, 3, 0, 1, 2, 3, 4, 1, 2, 3, 0],
     ion: "-",
     charge: 0,
     radioacti: "No",
@@ -25,7 +24,7 @@ var data = {
         data.electrons = e;
         data.mass = p + n;
         data.elem = data.elems[p - 1];
-        data.val = data.valencies[p - 1];
+        data.val = GetValency(data.electrons);
         data.charge = p - e;
         data.ion = (p == e ? "-" : (p > e ? "cation" : "anion"));
         data.radioacti = (p - n > 5 ? "Yes" : (p == 90 || p == 92 || p == 101 ? "Yes" : "No"));
@@ -58,6 +57,7 @@ var neutronSize = 15;
 var electronSize = 10;
 var nucleusRadius = 50;
 var electronOrbitRadius = [90, 140, 200, 260, 320];
+var shellLimits = [2, 8, 18, 32, 50, 72];
 
 let electronAngles = [];
 let electronShells = [];
@@ -68,7 +68,6 @@ function initElectrons() {
     electronShells = [0, 0, 0, 0, 0];
     let remainingElectrons = nucleus.electrons;
 
-    var shellLimits = [2, 8, 18, 32, 32, 50];
     for (let i = 0; i < shellLimits.length; i++) {
         if (remainingElectrons > shellLimits[i]) {
             electronShells[i] = shellLimits[i];
@@ -249,6 +248,37 @@ function animate() {
 
 function toggleElectronCloud() {
     drawAtom();
+}
+
+function GetValency(Z){
+    var x = outerShellElectron(Z) % 8;
+    if(x<=4){
+        return x;
+    }
+    else {
+        return 8-x;
+    }
+}
+
+function outerShellElectron(Z){
+    if(Z<=2){
+        return Z;
+    }
+    if(Z<=10){
+        return Z-2;
+    }
+    if(Z<=28){
+        return Z-10; 
+    }
+    if(Z<=60){
+        return Z-28; 
+    }
+    if(Z<=110){
+        return Z-60; 
+    }
+    if(Z<=182){
+        return Z-110; 
+    }
 }
 
 initElectrons();
