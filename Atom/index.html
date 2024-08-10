@@ -1,95 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="../game-ico.png"></link>
-    <title>2D Atom Simulation</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            color: #333;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-        canvas {
-            border: 1px solid #000;
-            background: #f0f0f0;
-            width: 50%;
-        }
-        #controls {
-            margin-bottom: 20px;
-        }
-        #controls button {
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            margin-right: 5px;
-            margin-top:5px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        .p {
-            background:#ff0000;
-        }
-        .p:hover{
-            background:#b30000;
-        }
-        .e {
-            background:#0000ff;
-        }
-        .e:hover{
-            background:#0000cc;
-        }
-        .n {
-            background:#808080;
-        }
-        .n:hover{
-            background:#666666;
-        }
-        .a {
-            background:#008000;
-        }
-        .a:hover{
-            background:#004d00;
-        }
-        #info {
-            margin-top: 10px;
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-        #info span {
-            font-weight: bold;
-            color: #6200ea;
-        }
-    </style>
-</head>
-<body>
-    <div id="controls">
-        <input type="checkbox" id="electronCloud" onchange="toggleElectronCloud()" style="margin-top:10px;">
-        <label for="electronCloud">Electron Cloud</label><br>
-        <button onclick="addProton()" class="p">Add p+</button>
-        <button onclick="removeProton()" class="p">Remove p+</button>
-        <button onclick="addElectron()" class="e">Add e-</button>
-        <button onclick="removeElectron()"  class="e">Remove e-</button>
-        <button onclick="addNeutron()"  class="n">Add n</button>
-        <button onclick="removeNeutron()"  class="n">Remove n</button>
-        <button onclick="addEnp()"  class="a">Add p+, e-</button>
-        <button onclick="andEnnp()"  class="a">Add p+, e-, n</button>
-    </div>
-    <canvas id="atomCanvas" width="800" height="600"></canvas><br><br>
-    <div id="info">
-        Protons (p) = <span id="protons"></span>, Electrons (e) = <span id="electrons"></span>, Neutrons (N) = <span id="neutrons"></span><br>
-        Element: <span id="element"></span>, Atomic Number (Z) = <span id="atomicNumber"></span><br>
-        Mass Number (A) = <span id="massNumber"></span>, Mass (m) ≈ <span id="mass"></span> <span>amu</span><br>
-        Charge (q) = <span id="charge"></span> <span>e</span>, Ion Type: <span id="ionType"></span><br>
-        Valency (V) = <span id="valency"></span>, Radioactive: <span id="radioactive"></span>
-    </div>
-
-    <script src="../jq.js"></script>
-    <script src="atom.js"></script>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="../game-ico.png"></link>
+        <link rel="stylesheet" href="atom.css"></link>
+        <title>Atom Simulation</title>
+    </head>
+    <body>
+        <div id="controls">
+            <input type="checkbox" id="electronCloud" onchange="toggleElectronCloud()" style="margin-top:10px;">
+            <label for="electronCloud">Electron Cloud</label><br>
+            <button onclick="addProton()" class="btn btn-danger">Add p+</button>
+            <button onclick="removeProton()" class="btn btn-danger mr-2">Remove p+</button>
+            <button onclick="addElectron()" class="btn btn-primary">Add e-</button>
+            <button onclick="removeElectron()"  class="btn btn-primary mr-2">Remove e-</button>
+            <button onclick="addNeutron()"  class="btn btn-secondary">Add n</button>
+            <button onclick="removeNeutron()"  class="btn btn-secondary mr-2">Remove n</button>
+            <button onclick="addEnp()"  class="btn btn-success">Add p+, e-</button>
+            <button onclick="addNeutron(); addEnp();"  class="btn btn-success mr-2">Add p+, e-, n</button><br>
+            <button onclick="ElemX(1, 1);"  class="btn btn-success">Reset to <sub>1</sub>H<sup>1</sup>(q=0)</button>
+            <button onclick="ElemX(2, 0, 2);"  class="btn btn-danger">α - partical</button>
+            <select class="custom-select-o ml-1">
+                <option selected disabled>Element</option>
+            </select>
+        </div>
+        <canvas id="atomCanvas" width="800" height="600"></canvas><br><br>
+        <div id="info" class="mb-2 mt-0">
+            Protons (p) = <span id="protons"></span>, Electrons (e) = <span id="electrons"></span>, Neutrons (N) = <span id="neutrons"></span><br>
+            Element: <span id="element"></span>, Atomic Number (Z) = <span id="atomicNumber"></span><br>
+            Mass Number (A) = <span id="massNumber"></span>, Mass (m) ≈ <span id="mass"></span> <span>amu</span><br>
+            Charge (q) = <span id="charge"></span> <span>e</span>, Ion Type: <span id="ionType"></span><br>
+            Valency (V) = <span id="valency"></span>, Radioactive: <span id="radioactive"></span>
+        </div>
+        
+        <script src="atom.js"></script>
+    </body>
 </html>
